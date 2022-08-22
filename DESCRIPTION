@@ -1,0 +1,25 @@
+Package: TAUR
+Type: Package
+Title: Text Analysis Using R companion package
+Version: 0.1.0
+Authors@R: c( 
+    person("Kenneth", "Benoit", email = "kbenoit@lse.ac.uk", role = c("cre", "aut", "cph"), comment = c(ORCID = "0000-0002-0797-564X")), 
+    person("Stefan", "Müller", email = "mullers@tcd.ie", role = c("aut", "aut"), comment = c(ORCID = "0000-0002-6315-4125"))
+    )
+Description: A companion R package for the book _Text Analysis Using R_ by
+    Kenneth Benoit and Stefan Müller.
+License: GPL-3
+Depends:
+    R (>= 3.5.0)
+Suggests:
+    quanteda,
+    spelling,
+    testthat
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: xz
+URL: http://github.com/quanteda/TAUR
+BugReports: https://github.com/quanteda/TAUR/issues
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
