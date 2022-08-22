@@ -1,5 +1,7 @@
+<!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/TAUR)](https://cran.r-project.org/package=TAUR)
-[![Travis build status](https://travis-ci.org/quanteda/TAUR.svg?branch=master)](https://travis-ci.org/quanteda/TAUR)
+[![R-CMD-check](https://github.com/quanteda/TAUR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/quanteda/TAUR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 # Companion package for _Text Analysis Using R_
 
