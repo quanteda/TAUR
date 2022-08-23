@@ -4,7 +4,7 @@ Title: Text Analysis Using R companion package
 Version: 0.1.0
 Authors@R: c( 
     person("Kenneth", "Benoit", email = "kbenoit@lse.ac.uk", role = c("cre", "aut", "cph"), comment = c(ORCID = "0000-0002-0797-564X")), 
-    person("Stefan", "Müller", email = "mullers@tcd.ie", role = c("aut", "aut"), comment = c(ORCID = "0000-0002-6315-4125"))
+    person("Stefan", "Müller", email = "stefan.mueller@ucd.ie", role = c("aut", "aut"), comment = c(ORCID = "0000-0002-6315-4125"))
     )
 Description: A companion R package for the book _Text Analysis Using R_ by
     Kenneth Benoit and Stefan Müller.
