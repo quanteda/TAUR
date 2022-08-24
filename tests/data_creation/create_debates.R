@@ -21,13 +21,13 @@ debates_meta <- data.frame(
 )
 
 # format the date
-debates_meta$date <- as.Date(trimws(debates_meta$date), 
+debates_meta$date <- as.Date(trimws(debates_meta$date),
                              format = "%b %d, %Y")
 
 # get debate URLs
-debates_links <- source_page |> 
-    html_nodes(".views-field-title a") |> 
-    html_attr(name = "href") 
+debates_links <- source_page |>
+    html_nodes(".views-field-title a") |>
+    html_attr(name = "href")
 
 # add first part of URL to debate links
 debates_links <- paste0("https://www.presidency.ucsb.edu", debates_links)
@@ -37,12 +37,12 @@ debates_scraped <- lapply(debates_links, read_html)
 
 # get character vector, one element per debate
 debates_text <- sapply(debates_scraped, function(x) {
-    html_nodes(x, "p") |> 
+    html_nodes(x, "p") |>
         html_text() |>
         paste(collapse = "\n\n")
 })
 
-debates_meta$location <- factor(str_remove_all(debates_meta$location, 
+debates_meta$location <- factor(str_remove_all(debates_meta$location,
                                         "Presidential Debate at "))
 
 
@@ -53,13 +53,25 @@ remove_end_20201022 <- "\n\nDonald J. Trump, Presidential Debate at Belmont Univ
 
 dat_debates_text <- data.frame(text = debates_text)
 
-dat_debates_text <- dat_debates_text |> 
+dat_debates_text <- dat_debates_text |>
     mutate(text = gsub(".*News\\)\\n\\n", "", text), # remove start of string that does not relate to debate
            text = str_remove_all(text, remove_end_20200929),
            text = str_remove_all(text, remove_end_20201022),
-           text = str_remove_all(text, "\\|\\|"))
+           text = str_remove_all(text, "\\|\\|"),
+           text = str_replace_all(text, " {0,1}(\\. {0,1}){3,4}", "..."), # remove spaces in ellipses
+           text = str_replace_all(text, fixed(":..."), ": ..."),          # for spaces removed after colons
+           text = str_replace_all(text, "\\-\\n", "...\n"),               # use ... for end of line not -
+           text = str_replace_all(text, fixed("- ["), "... ["),           # use ... for internal interruption
+           text = str_replace_all(text, " {0,1}— {0,1}\\n", "...\n"),
+           text = str_replace_all(text, fixed("spewting"), "spewing"),
+           text = str_replace_all(text, fixed("200--250"), "200-250"),
+           text = str_replace_all(text, fixed("Every body"), "Everybody"),
+           text = str_replace_all(text, "(\\w) {0,1}-- {0,1}(\\w)", "\\1 -- \\2"))
 
-data_corpus_debates <- corpus(dat_debates_text$text, 
+dat_debates_text <- dat_debates_text |>
+  mutate(text = str_replace_all(text, " -...\\n", "...\n"))
+
+data_corpus_debates <- corpus(dat_debates_text$text,
                               docvars = debates_meta)
 
 
@@ -70,14 +82,14 @@ as.character(data_corpus_debates[1])
 as.character(data_corpus_debates[2])
 
 
-docnames(data_corpus_debates) <- paste0("Debate: ", data_corpus_debates$date)
+docnames(data_corpus_debates) <- paste0("Debate ", data_corpus_debates$date)
 
 
 # inspect
 quanteda.tidy::glimpse(data_corpus_debates)
 
 meta(data_corpus_debates) <- list(
-  description = "2020 US Presidential Debates between Donald J. Trump pand Joe Biden",
+  description = "2020 US Presidential Debates between Donald J. Trump and Joe Biden",
   source = "The Presidential Presidency Project",
   url = "https://www.presidency.ucsb.edu",
   author = "UC Santa Barbara",
@@ -85,7 +97,4 @@ meta(data_corpus_debates) <- list(
   title = "2020 US Presidential Debates"
 )
 
-data_tokens_debates <- tokens(data_corpus_debates)
-
 usethis::use_data(data_corpus_debates, overwrite = TRUE)
-# usethis::use_data(data_tokens_debates, overwrite = TRUE)
