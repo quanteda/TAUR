@@ -8,7 +8,7 @@
 The docname is the date of the debate.  The corpus docvars consist of:
 \describe{
 \item{location}{factor; location of the debate (Cleveland and Nashville).}
-\item{date}{date; date of the debate (2020-09-29 and 202-10-22).}
+\item{date}{date; date of the debate (2020-09-29 and 2020-10-22).}
 }
 }
 \source{
@@ -25,9 +25,9 @@ politicians and the moderator.
 \examples{
 # transform debate-level corpus to level of statements
 library(quanteda)
-data_corpus_debatesseg <- corpus_segment(data_corpus_debates, 
-                                         pattern =  "\\\\s*[[:upper:]]+:\\\\s+", 
-                                         valuetype = "regex", 
+data_corpus_debatesseg <- corpus_segment(data_corpus_debates,
+                                         pattern =  "\\\\s*[[:upper:]]+:\\\\s+",
+                                         valuetype = "regex",
                                          case_insensitive = FALSE)
 }
 \references{
