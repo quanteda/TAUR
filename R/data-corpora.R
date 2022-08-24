@@ -105,3 +105,26 @@
 #'   4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
 #' @keywords data
 "data_corpus_TAhotels"
+
+
+#' 2020 US Presidential Debates
+#'
+#' A corpus object containing the transcripts of the two US Presidential Debates
+#' Donald J. Trump and Joe Biden. Each document includes the full debate text by the two
+#' politicians and the moderator.
+#' @format The docname is the date of the debate.  The corpus docvars consist of:
+#'   \describe{
+#'   \item{location}{factor; location of the debate (Cleveland and Nashville).}
+#'   \item{date}{date; date of the debate (2020-09-29 and 2020-10-22).}
+#'   }
+#' @source <https://www.presidency.ucsb.edu>
+#' @references "The American Presidency Project"
+#' @keywords data
+#' @examples
+#' # transform debate-level corpus to level of statements
+#' library(quanteda)
+#' data_corpus_debatesseg <- corpus_segment(data_corpus_debates,
+#'                                          pattern =  "\\s*[[:upper:]]+:\\s+",
+#'                                          valuetype = "regex",
+#'                                          case_insensitive = FALSE)
+"data_corpus_debates"
