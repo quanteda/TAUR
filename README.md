@@ -21,6 +21,9 @@ Corpora contained in the package are the following:
 
 Corpus | Name
 --|--
+20k TripAdvisor hotel reviews | data_corpus_TAhotels
+2020 US Presidential Debates | data_corpus_debates
+Donald Trump's tweets, 2009-2021 | data_corpus_trumptweets
 Amicus curiae briefs from Bakke (1978) and Bollinger (2008) | data_corpus_amicus
 Annual budget speeches from the Irish Dáil, 2008-2012 | data_corpus_irishbudgets
 UK news articles from 2014 that mention immigration | data_corpus_immigrationnews
