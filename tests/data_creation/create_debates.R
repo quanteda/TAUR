@@ -1,5 +1,4 @@
 library("quanteda")
-library("quanteda")
 library("rvest")
 library("stringr")
 library("quanteda.tidy")
@@ -23,6 +22,9 @@ debates_meta <- data.frame(
 # format the date
 debates_meta$date <- as.Date(trimws(debates_meta$date),
                              format = "%b %d, %Y")
+
+debates_meta$location <- ifelse(str_detect(debates_meta$location, "Ohio"), 
+                                           "Cleveland, Ohio", "Nashville, Tennessee")
 
 # get debate URLs
 debates_links <- source_page |>
@@ -70,6 +72,8 @@ dat_debates_text <- dat_debates_text |>
 
 dat_debates_text <- dat_debates_text |>
   mutate(text = str_replace_all(text, " -...\\n", "...\n"))
+
+# adjust location coding
 
 data_corpus_debates <- corpus(dat_debates_text$text,
                               docvars = debates_meta)
